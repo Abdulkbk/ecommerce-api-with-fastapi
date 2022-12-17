@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "fastapi-ecom"
+version = "0.1.0"
+description = "Ecommerce api with fastapi"
+authors = ["Abdulkbk <abdoollahikbk@gmail.com>"]
+readme = "README.md"
+packages = [{include = "fastapi_ecom"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = {extras = ["all"], version = "^0.88.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
