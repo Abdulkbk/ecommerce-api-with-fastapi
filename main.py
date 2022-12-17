@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import APIRouter, FastAPI
 
+from authentication.crud import auth_router
 
 # Init FastAPI app
 app = FastAPI(
@@ -13,12 +14,14 @@ app = FastAPI(
 # Routers
 api_router = APIRouter(prefix='/api')
 
+api_router.include_router(auth_router, tags=['auth'])
+
 app.include_router(api_router)
 
 # Startup event
-@app.on_event('startup')
-async def startup():
-  ...
+# @app.on_event('startup')
+# async def startup():
+#   ...
 
 # Shutdown event
 async def shutdown():
