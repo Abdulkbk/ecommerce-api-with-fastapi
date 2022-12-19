@@ -14,7 +14,11 @@ class DevSettings(Settings):
   prod: bool = True
   fastapi_log_level: str = 'debug'
   domain_name: str = 'http://localhost:8000'
-  database_uri:str = ""
+  database_uri: str = ''
+  jwt_secret: str = ''
+  refresh_secret: str = ''
+  access_exp: float
+  refresh_exp: float
 
 
 class ProdSettings(Settings):
