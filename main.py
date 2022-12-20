@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import APIRouter, FastAPI
 
 from authentication.routes import auth_router
+from features.product.routes import product_router
 
 # Init FastAPI app
 app = FastAPI(
@@ -15,6 +16,7 @@ app = FastAPI(
 api_router = APIRouter(prefix='/api')
 
 api_router.include_router(auth_router, tags=['auth'])
+api_router.include_router(product_router, tags=['product'])
 
 app.include_router(api_router)
 
