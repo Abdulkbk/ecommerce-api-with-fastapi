@@ -18,7 +18,7 @@ auth_router = InferringRouter()
 
 
 @cbv(auth_router)
-class AuthCrud:
+class AuthRoute:
 
   @auth_router.post(
     '/register',
