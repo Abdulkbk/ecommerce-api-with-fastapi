@@ -1,4 +1,4 @@
-## ecommerce-api-with-fastapi
+# ecommerce-api-with-fastapi
 
 
 Welcome to the ecommerce API developed with FastAPI! This API has been designed to allow users to perform various ecommerce related tasks such as searching for products, adding items to a cart, and placing orders.
