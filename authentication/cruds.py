@@ -69,3 +69,11 @@ async def _check_password(password: str, password_hash: str) -> bool:
   return await cpu_bound_task(
     bcrypt.checkpw, password.encode(), password_hash.encode()
   )
+
+
+async def _extract_user_from_token(acces_token: str):
+  decoded = jwt.decode(
+    acces_token,
+    key=cfg.jwt_secret,
+  )['user']
+  return decoded

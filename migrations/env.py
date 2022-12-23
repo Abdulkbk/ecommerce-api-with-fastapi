@@ -10,7 +10,7 @@ from sqlmodel import SQLModel
 from alembic import context
 
 from authentication.models import User
-from features.product.models import Product
+from features.product.models import Product, ProductLike
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -25,7 +25,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = SQLModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
