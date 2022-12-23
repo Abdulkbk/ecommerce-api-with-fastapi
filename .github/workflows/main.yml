@@ -39,7 +39,7 @@ jobs:
           path: .venv
           key: pydeps-${{ hashFiles('**/poetry.lock') }}
 
-      - run: poetry install --no-interaction
+      - run: poetry install --no-root
 
       - name: Sort all imports according to PEP8 and Flake8
         run: poetry run isort .
