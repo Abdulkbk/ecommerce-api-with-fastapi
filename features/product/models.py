@@ -8,9 +8,10 @@ class ProductBase(SQLModel):
   currency: str = 'naira'
 
 
-# class ProductLike(SQLModel, table=True):
-#   user_id: Optional[int] = Field(foreign_key='user.id', primary_key=True)
-#   product_id: Optional[int] = Field(foreign_key='product.id', primary_key=True)
+class ProductLike(SQLModel, table=True):
+  id: int = Field(default=None, primary_key=True)
+  user_id: Optional[int] = Field(foreign_key='user.id', primary_key=True)
+  product_id: Optional[int] = Field(foreign_key='product.id', primary_key=True)
 
 class Product(ProductBase, table=True):
   id: int = Field(default=None, primary_key=True)

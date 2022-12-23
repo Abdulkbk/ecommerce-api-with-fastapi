@@ -21,3 +21,10 @@ async def update_one_product():
 
 async def delete_one_product(session: AsyncSession, id: int):
   return await delete_product_by_id(session, id)
+
+
+async def like_product(session: AsyncSession, id: int):
+  pass
+
+async def unlike_product(session: AsyncSession, id: int):
+  pass
