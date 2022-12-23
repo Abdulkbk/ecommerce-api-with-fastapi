@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .venv
-          key: pydeps-${{ hashFiles(**/poetry.lock) }}
+          key: pydeps-${{ hashFiles('**/poetry.lock') }}
 
       - run: poetry install --no-interaction
 
