@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
 from starlette.responses import JSONResponse, Response
-from authentication.cruds import authenticate_user, register_user
+from authentication.cruds import authenticate_user, get_user, register_user
 from authentication.models import LoginIn, User, UserCreate, UserProfile
 
 from common.concurrency import cpu_bound_task
