@@ -2,6 +2,8 @@ import bcrypt
 import jwt
 import datetime as dt
 
+from fastapi import Request
+
 from common.config import cfg
 
 from sqlalchemy.future import select
@@ -52,7 +54,7 @@ def _generate_jwt_access_token(profile_data):
     'iat': iat
   }
   payload = jwt.encode(
-    payload=user_payload, key=cfg.jwt_secret,
+    payload=user_payload, key=cfg.jwt_secret, algorithm=cfg.jwt_algorithm
   )
   return payload
 
@@ -61,7 +63,7 @@ def _generate_jwt_refresh_token(profile_data):
   exp = iat + dt.timedelta(days=cfg.refresh_exp)
   user_payload = profile_data
   payload = jwt.encode(
-    payload=user_payload, key=cfg.refresh_secret
+    payload=user_payload, key=cfg.refresh_secret, algorithm=cfg.jwt_algorithm
   )
   return payload
   
@@ -71,9 +73,29 @@ async def _check_password(password: str, password_hash: str) -> bool:
   )
 
 
-async def _extract_user_from_token(acces_token: str):
+def _extract_user_from_token(acces_token: str):
   decoded = jwt.decode(
     acces_token,
     key=cfg.jwt_secret,
+    algorithms=cfg.jwt_algorithm
   )['user']
+  # print(decoded)
   return decoded
+
+
+
+async def get_user(request: Request):
+  return await _check_and_extract_user(request=request)
+
+async def _check_and_extract_user(request: Request):
+  authorization_header = request.headers.get('Authorization')
+  # if not authenticate_user:
+  #   pass
+  authorization_header = authorization_header.replace('"', "")
+  try:
+    access_token = authorization_header.replace('Bearer ', "")
+    print(access_token)
+    user = _extract_user_from_token(access_token)
+    return user
+  except:
+    pass
