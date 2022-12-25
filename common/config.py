@@ -19,6 +19,7 @@ class DevSettings(Settings):
   refresh_secret: str = ''
   access_exp: float
   refresh_exp: float
+  jwt_algorithm: str = 'HS256'
 
 
 class ProdSettings(Settings):
