@@ -9,8 +9,8 @@ async def get_products(session: AsyncSession):
   result = await session.execute(query)
   return result.scalars().all()
 
-async def add_product(session: AsyncSession, product: ProductCreate):
-  product = Product(**product.dict())
+async def add_product(owner: int, session: AsyncSession, product: ProductCreate):
+  product = Product(**product.dict(), owner_id=owner)
   session.add(product)
   await session.commit()
   await session.refresh(product)

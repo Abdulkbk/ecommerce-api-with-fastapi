@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import APIRouter, FastAPI
 
+from common.log import logger
+
 from authentication.routes import auth_router
 from features.product.routes import product_router
 
@@ -31,6 +33,7 @@ async def shutdown():
 
 @app.get('/')
 async def root():
+  logger.info(msg='GET Request to /')
   return {'message': f'Head to /docs to view api documentation'}
 
 

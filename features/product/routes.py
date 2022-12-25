@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import Depends, status
+from fastapi import Depends, status, Request
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -7,6 +7,7 @@ from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
 
 from starlette.responses import JSONResponse, Response
+from authentication.cruds import get_user
 
 from common.database.db import get_session
 from features.product.cruds import add_one_product, delete_one_product, get_all_products
@@ -24,7 +25,8 @@ class ProductRoute:
     status_code=status.HTTP_200_OK,
     response_model=List[Product]
   )
-  async def get_products(self, session: AsyncSession = Depends(get_session)):
+  async def get_products(self, session: AsyncSession = Depends(get_session), user = Depends(get_user)):
+    print(user)
     return await get_all_products(session)
 
 
@@ -33,8 +35,8 @@ class ProductRoute:
     status_code=status.HTTP_200_OK,
     response_model=Product
   )
-  async def add_product(self, product: ProductCreate, session: AsyncSession = Depends(get_session)):
-    return await add_one_product(session, product)
+  async def add_product(self, product: ProductCreate, session: AsyncSession = Depends(get_session), user = Depends(get_user)):
+    return await add_one_product(user['id'], session, product)
   
   @product_router.get(
     '/{product_id}',
@@ -55,5 +57,5 @@ class ProductRoute:
     '/{product_id}',
     status_code=status.HTTP_200_OK
   )
-  async def delete_product(self, product_id: int, session: AsyncSession = Depends(get_session)):
+  async def delete_product(self, product_id: int, session: AsyncSession = Depends(get_session), user = Depends(get_user)):
     return await delete_one_product(session, product_id)

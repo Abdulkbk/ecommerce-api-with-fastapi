@@ -15,6 +15,7 @@ class ProductLike(SQLModel, table=True):
 
 class Product(ProductBase, table=True):
   id: int = Field(default=None, primary_key=True)
+  owner_id: int
 
   # likes: List['ProductLike'] = Relationship(back_populates='products', link_model=ProductLike)
 

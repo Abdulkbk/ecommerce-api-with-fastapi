@@ -11,8 +11,8 @@ async def get_one_product(session: AsyncSession, id: int):
   return await get_product_by_id(session, id)
 
 
-async def add_one_product(session: AsyncSession, product: ProductCreate):
-  return await add_product(session, product)
+async def add_one_product(owner, session: AsyncSession, product: ProductCreate):
+  return await add_product(int(owner), session, product)
 
 
 async def update_one_product():
