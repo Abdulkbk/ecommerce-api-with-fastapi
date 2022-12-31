@@ -20,7 +20,10 @@ class DevSettings(Settings):
   access_exp: float
   refresh_exp: float
   jwt_algorithm: str = 'HS256'
-
+  cache_host: str
+  cache_password: str
+  CACHE_PREFIX:str = 'ecommerce:'
+  CACHE_TTL: int = 3600 # 1 hour
 
 class ProdSettings(Settings):
   prod: bool = False
