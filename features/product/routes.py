@@ -1,6 +1,9 @@
 from typing import List
 from fastapi import Depends, status, Request
 
+from common.config import cfg
+from common.database.redis import redis_client
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi_utils.cbv import cbv
@@ -26,7 +29,12 @@ class ProductRoute:
     response_model=List[Product]
   )
   async def get_products(self, session: AsyncSession = Depends(get_session), user = Depends(get_user)):
-    print(user)
+    cache_key = f'{cfg.CACHE_PREFIX}products'
+    cached_products = await redis_client.get(cache_key)
+
+    if cached_products:
+      return cached_products
+      
     return await get_all_products(session)
 
 
